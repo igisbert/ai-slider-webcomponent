@@ -1,0 +1,130 @@
+:host {
+  display: block;
+  width: 100%;
+  --primary-color: #dcd3e9;
+  --secondary-color: #111111;
+  --margin-across-elements: 1.5rem;
+}
+
+.ai-cost-scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  opacity: 0.7;
+
+  & .ai-scale-label:nth-child(2) {
+    text-align: right;
+  }
+}
+
+.ai-bubbles-container {
+  --bubble-size: 2rem;
+  --bar-size: 6px;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  margin-top: var(--margin-across-elements);
+
+  &::before {
+    content: "";
+    height: var(--bar-size);
+    width: 100%;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: calc(50% - (var(--bar-size) / 2));
+    left: 0;
+    z-index: -1;
+  }
+
+  & .ai-bubble {
+    width: var(--bubble-size);
+    aspect-ratio: 1;
+    border-radius: 1.5rem;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    cursor: pointer;
+    transition: transform 0.25s ease;
+
+    &.active {
+      transform: scale(1.15);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        transform: scale(1.15);
+      }
+    }
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.ai-info-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: var(--margin-across-elements);
+}
+
+.ai-info {
+  grid-area: 1 / 1;
+  background-color: var(--primary-color);
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  @supports (corner-shape: squircle) {
+    corner-shape: squircle;
+    border-radius: 3rem;
+  }
+
+  & h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+  }
+
+  & .ai-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    & .ai-pill {
+      --pill-bgcolor: var(--secondary-color);
+      --pill-color: color-mix(in srgb, var(--primary-color), transparent 15%);
+
+      background: var(--pill-bgcolor);
+      color: var(--pill-color);
+      padding: 0.45rem 0.65rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  & p {
+    margin: 0;
+    line-height: 1.4;
+    color: var(--secondary-color);
+  }
+}
